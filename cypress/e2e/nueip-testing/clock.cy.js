@@ -1,16 +1,16 @@
-describe('Clockin & out testing - Admin', () => {
+describe('Clockin & out testing', () => {
   context('Login' ,() => {
     beforeEach(() => {
-      cy.viewport(1280, 800)
-      cy.fixture('users').then((users) => {
-        cy.loginWithUI(users.user1)
+        cy.viewport(1280, 800)
+        cy.fixture('nueipUsers').then((users) => {
+        cy.loginByCSRF(users.admin)
       })
     })
 
-    it('spy & stub', () => {
+    it('Stub', () => {
       cy.visit('/home')
 
-      // 設定攔截器，監聽route並塞入假物件response
+      // Stubbing，塞入假物件response
       cy.fixture('clockinResponse').then((response) => {
         cy.intercept(
           {
@@ -23,7 +23,6 @@ describe('Clockin & out testing - Admin', () => {
             delay: 2000
           }).as('clockin')
       })
-
 
       // 點擊上班打卡
       cy.get('.desktopsite_right')
@@ -81,7 +80,6 @@ describe('Clockin & out testing - Admin', () => {
 
       // 等待別名路由
       cy.wait('@clockin').then(({request, response}) => {
-        cy.screenshot()
         expect(response.body.status).to.eq('fail')
         expect(response.body.message).to.eq('請稍後再打卡')
       })
