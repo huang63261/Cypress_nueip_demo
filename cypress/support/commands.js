@@ -53,6 +53,9 @@ Cypress.Commands.add('loginWithUI', (user) => {
         expect(location.pathname).to.eq('/home')
       })
     })
+  },
+  {
+    cacheAcrossSpecs: true
   })
 })
 
@@ -83,5 +86,8 @@ Cypress.Commands.add('loginByCSRF', (user) => {
           cy.visit('/home')
       })
     })
+  },
+  {
+    cacheAcrossSpecs: true
   })
 })

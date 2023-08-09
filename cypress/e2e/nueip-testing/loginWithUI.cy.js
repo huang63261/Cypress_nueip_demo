@@ -3,7 +3,7 @@ describe('Login With UI', () => {
     beforeEach(() => {
       cy.viewport(1280, 800)
       cy.fixture('nueipUsers').then((users) => {
-        cy.loginWithUI(users.user1)
+        cy.loginWithUI(users.admin)
       })
     })
 

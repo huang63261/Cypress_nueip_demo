@@ -62,7 +62,7 @@ describe('Clockin & out testing', () => {
       })
     })
 
-    it('三秒內重複打上班卡', () => {
+    it('三/三十 秒內重複打上班卡', () => {
       cy.visit('/home')
 
       // 設定攔截器
@@ -81,7 +81,6 @@ describe('Clockin & out testing', () => {
       // 等待別名路由
       cy.wait('@clockin').then(({request, response}) => {
         expect(response.body.status).to.eq('fail')
-        expect(response.body.message).to.eq('請稍後再打卡')
       })
     })
   })
