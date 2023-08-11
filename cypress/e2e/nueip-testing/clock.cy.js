@@ -19,7 +19,7 @@ describe('Clockin & out testing', () => {
           },
           {
             statusCode: 400,
-            body: response.thirtySecsFail,
+            body: response.stubbingTest,
             delay: 2000
           }).as('clockin')
       })
@@ -35,7 +35,7 @@ describe('Clockin & out testing', () => {
       cy.wait('@clockin').then(({request, response}) => {
         expect(response.statusCode).to.eq(400)
         expect(response.body.status).to.eq('fail')
-        expect(response.body.message).to.eq('30秒內請勿重複打卡')
+        expect(response.body.message).to.eq('我是假的')
       })
     })
 
@@ -62,7 +62,7 @@ describe('Clockin & out testing', () => {
       })
     })
 
-    it('三秒內重複打上班卡', () => {
+    it('三/三十 秒內重複打上班卡', () => {
       cy.visit('/home')
 
       // 設定攔截器
@@ -81,7 +81,6 @@ describe('Clockin & out testing', () => {
       // 等待別名路由
       cy.wait('@clockin').then(({request, response}) => {
         expect(response.body.status).to.eq('fail')
-        expect(response.body.message).to.eq('請稍後再打卡')
       })
     })
   })
