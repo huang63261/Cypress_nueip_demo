@@ -19,7 +19,7 @@ describe('Clockin & out testing', () => {
           },
           {
             statusCode: 400,
-            body: response.thirtySecsFail,
+            body: response.stubbingTest,
             delay: 2000
           }).as('clockin')
       })
@@ -35,7 +35,7 @@ describe('Clockin & out testing', () => {
       cy.wait('@clockin').then(({request, response}) => {
         expect(response.statusCode).to.eq(400)
         expect(response.body.status).to.eq('fail')
-        expect(response.body.message).to.eq('30秒內請勿重複打卡')
+        expect(response.body.message).to.eq('我是假的')
       })
     })
 

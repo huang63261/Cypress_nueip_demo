@@ -34,16 +34,16 @@ Cypress.Commands.add('loginWithUI', (user) => {
     cy.visit('/login')
     
     cy.get('#dept_input')
-    .type(user.company).
-    should('have.value', user.company)
+    .type(user.company)
+    .should('have.value', user.company)
   
     cy.get('#username_input')
-    .type(user.username).
-    should('have.value', user.username)
+    .type(user.username)
+    .should('have.value', user.username)
   
     cy.get('#password-input')
-    .type(user.password).
-    should('have.value', user.password)
+    .type(user.password)
+    .should('have.value', user.password)
 
     cy.get('#login-button')
     .click()
@@ -55,7 +55,7 @@ Cypress.Commands.add('loginWithUI', (user) => {
     })
   },
   {
-    cacheAcrossSpecs: true
+    cacheAcrossSpecs: false
   })
 })
 
@@ -88,6 +88,6 @@ Cypress.Commands.add('loginByCSRF', (user) => {
     })
   },
   {
-    cacheAcrossSpecs: true
+    cacheAcrossSpecs: false
   })
 })
