@@ -3,7 +3,7 @@ describe('Login - CSRF', () => {
     beforeEach(() => {
       cy.viewport(1280, 800)
       cy.fixture('nueipUsers').then((users) => {
-        cy.loginByCSRF(users.user1)
+        cy.loginByCSRF(users.admin)
       })
     })
 

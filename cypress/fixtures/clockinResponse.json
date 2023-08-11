@@ -11,5 +11,9 @@
     "thirtySecsFail": {
         "status":"fail",
         "message":"30\u79d2\u5167\u8acb\u52ff\u91cd\u8907\u6253\u5361"
+    },
+    "stubbingTest": {
+        "status": "fail",
+        "message": "我是假的"
     }
 }
