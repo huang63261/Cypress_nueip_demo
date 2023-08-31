@@ -84,6 +84,9 @@ Cypress.Commands.add('loginByCSRF', (user) => {
         }).toString(),
       }).then((response) => {
           cy.visit('/home')
+          cy.location().should((location) => {
+            expect(location.pathname).to.eq('/home')
+          })
       })
     })
   },
