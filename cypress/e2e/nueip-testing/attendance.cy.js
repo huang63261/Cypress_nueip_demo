@@ -97,10 +97,10 @@ describe('attendance record testing - Admin', () => {
           cy.wrap($input).scrollIntoView()
 
           cy.wrap($input)
-          .parents('tr')
-          .find('input[type="radio"][value="1"]')
-          .click()
-          .should('be.checked')
+            .parents('tr')
+            .find('input[type="radio"][value="1"]')
+            .click()
+            .should('be.checked')
         })
 
         cy.get('#save').click()
@@ -113,10 +113,10 @@ describe('attendance record testing - Admin', () => {
         cy.get('input[value="自動化測試"]').each(($input) => {
           cy.wrap($input).scrollIntoView()
           cy.wrap($input)
-          .parents('td')
-          .siblings('td.text_align_center')
-          .find('.DeleteBtn')
-          .click()
+            .parents('td')
+            .siblings('td.text_align_center')
+            .find('.DeleteBtn')
+            .click()
 
           cy.get('input[data-value="yes"]').should('exist').wait(100).click()
         })
