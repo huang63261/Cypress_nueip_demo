@@ -2,8 +2,8 @@ describe('attendance record testing - Admin', () => {
   context('出勤紀錄測試案例', () => {
       beforeEach(() => {
       cy.viewport(1280, 800)
-      cy.fixture('nueipUsers').then((users) => {
-        cy.loginByCSRF(users.admin)
+      cy.fixture('users/admin').then((users) => {
+        cy.loginByCSRF(users)
       })
     })
 
