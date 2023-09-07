@@ -143,16 +143,21 @@ describe('請假作業', () => {
           cy.get('.labal-date[data-day="2023-09-12"]').parents('.ctrl-day').find('.end').clear().type('12:00{enter}')
           })
 
-          // 點擊選擇檔案按鈕
-          // cy.get('.fh-file-select').click()
-
           // todo 上傳檔案
-          // let fileEl = document.createElement("div")
-          // fileEl.setAttribute('data-name', 'test.txt')
+          // let fileEl = document.createElement("span")
+          // fileEl.classList.add('fh-file-info')
+          // fileEl.setAttribute('data-name', 'files[]')
+
           // cy.fixture('QA_training.png', 'binary').then((pic) => {
-          //   fileEl.setAttribute('data-file', pic)
+          //   const file = new File(Cypress.Buffer.from(pic), "qa_training時程甘特圖.png", {
+          //     type: "image/png",
+          //     lastModified: Date.now(),
+          //   })
+          //   fileEl.setAttribute('data-file', file)
           // })
+          // // 將 fileLoader append到表單中
           // $formEl.append(fileEl)
+
 
           // 輸入原因
           cy.get('textarea[name="remark"]').should('be.visible').type('請假申請自動化測試')
@@ -211,12 +216,12 @@ describe('請假作業', () => {
 
       // 抓取目標假單
       cy.get('td[data-th="申請說明"]')
-      .should('have.text', '請假申請自動化測試')
-      .siblings('td[data-th="開始時間"]')
-      .should('have.text', '2023-09-11')
-      .siblings('td[data-th="結束時間"]')
-      .should('have.text', '2023-09-12')
-      .parent('tr').as('leaveApplication')
+        .should('have.text', '請假申請自動化測試')
+        .siblings('td[data-th="開始時間"]')
+        .should('have.text', '2023-09-11')
+        .siblings('td[data-th="結束時間"]')
+        .should('have.text', '2023-09-12')
+        .parent('tr').as('leaveApplication')
 
       // 展開子層假單
       cy.get('@leaveApplication')
