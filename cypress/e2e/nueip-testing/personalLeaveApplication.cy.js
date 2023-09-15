@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('請假作業', () => {
   context('請假', () => {
     beforeEach(() => {

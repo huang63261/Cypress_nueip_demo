@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('出勤紀錄管理', () => {
   context('出勤紀錄管理匯入', () => {
     beforeEach(() => {

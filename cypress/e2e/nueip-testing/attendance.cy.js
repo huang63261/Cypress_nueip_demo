@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('attendance record testing - Admin', () => {
   context('出勤紀錄測試案例', () => {
       beforeEach(() => {
@@ -14,19 +16,15 @@ describe('attendance record testing - Admin', () => {
         expect(location.pathname).to.be.eq('/attendance_record')
       })
 
-      cy.intercept(
-        {
+      cy.intercept({
           method: "POST",
           path: "/shared/org_cascade_select_ajax"
-        }
-      ).as('recordAdd')
+        }).as('recordAdd')
 
-      cy.intercept(
-        {
+      cy.intercept({
           method: "POST",
           path: "/attendance_record/ajax",
-        }
-      ).as('ajax')
+        }).as('ajax')
 
       // 進入畫面首次查詢
       cy.wait('@ajax').then(({request, response}) => {
@@ -40,7 +38,7 @@ describe('attendance record testing - Admin', () => {
         // 抓取新增Modal
         cy.get('#ModalBody').within(() => {
           // 選取部門
-          cy.get('[data-id="SLayer2"]').should('be.visible').click()
+          cy.get('[data-id="SLayer2"]').debug().should('be.visible').click()
 
           // 點選 "RD" 選項
           cy.get('div.apply_company_unit > .dropdown-menu').contains('RD').click()

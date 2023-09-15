@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Clockin & out testing', () => {
   context('Login' ,() => {
     beforeEach(() => {

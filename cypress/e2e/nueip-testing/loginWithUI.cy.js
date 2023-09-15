@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Login With UI', () => {
   context('Login' ,() => {
     beforeEach(() => {
