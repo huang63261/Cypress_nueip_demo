@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('attendance record testing - Admin', () => {
   context('出勤紀錄測試案例', () => {
       beforeEach(() => {
@@ -8,25 +10,21 @@ describe('attendance record testing - Admin', () => {
     })
 
     it('新增、查詢、修改後再刪除', () => {
-      cy.visit('/attendance_record')
+      cy.visit(Cypress.env('attendance_url'))
 
       cy.location().then((location) => {
         expect(location.pathname).to.be.eq('/attendance_record')
       })
 
-      cy.intercept(
-        {
+      cy.intercept({
           method: "POST",
           path: "/shared/org_cascade_select_ajax"
-        }
-      ).as('recordAdd')
+        }).as('recordAdd')
 
-      cy.intercept(
-        {
+      cy.intercept({
           method: "POST",
           path: "/attendance_record/ajax",
-        }
-      ).as('ajax')
+        }).as('ajax')
 
       // 進入畫面首次查詢
       cy.wait('@ajax').then(({request, response}) => {

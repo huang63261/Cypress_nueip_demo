@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('請假作業', () => {
   context('請假', () => {
     beforeEach(() => {
@@ -6,13 +8,13 @@ describe('請假作業', () => {
         cy.loginByCSRF(user)
       })
 
-      cy.visit('/leave_application/personal_leave_application_user')
+      cy.visit(Cypress.env('leave_application_url').user)
     })
 
     it('查詢假單&快速查詢', () => {
       // 設置攔截器
       cy.intercept({
-        url: 'leave_application/personal_leave_application_user/',
+        url: Cypress.env('leave_application_url').user,
         method: 'POST',
       }).as('generalRequest')
 
@@ -99,7 +101,7 @@ describe('請假作業', () => {
 
       cy.intercept({
         method: 'POST',
-        url: '/leave_application/personal_leave_application_user/',
+        url: Cypress.env('leave_application_url').user,
       }).as('generalRequest')
 
       // 等待首次取得請假資料

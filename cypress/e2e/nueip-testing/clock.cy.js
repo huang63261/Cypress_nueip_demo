@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Clockin & out testing', () => {
   context('Login' ,() => {
     beforeEach(() => {
@@ -8,7 +10,7 @@ describe('Clockin & out testing', () => {
     })
 
     // it('request 發出打卡請求', () => {
-    //   cy.visit('/home')
+    //   cy.visit(Cypress.env('home_url'))
 
       // cy.get('.desktopsite_right')
       //   .find('.clock_blcok')
@@ -37,7 +39,7 @@ describe('Clockin & out testing', () => {
     // })
 
     it('Stub', () => {
-      cy.visit('/home')
+      cy.visit(Cypress.env('home_url'))
 
       // Stubbing，塞入假物件response
       cy.fixture('clockinResponse').then((response) => {
@@ -70,7 +72,7 @@ describe('Clockin & out testing', () => {
     })
 
     it('成功打上班卡', () => {
-      cy.visit('/home')
+      cy.visit(Cypress.env('home_url'))
 
       // 設定攔截器
       cy.intercept({
@@ -94,7 +96,7 @@ describe('Clockin & out testing', () => {
     })
 
     it('三/三十 秒內重複打上班卡', () => {
-      cy.visit('/home')
+      cy.visit(Cypress.env('home_url'))
 
       // 設定攔截器
       cy.intercept({

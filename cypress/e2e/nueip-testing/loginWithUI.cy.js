@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Login With UI', () => {
   context('Login' ,() => {
     beforeEach(() => {
@@ -8,7 +10,7 @@ describe('Login With UI', () => {
     })
 
     it('login test', () => {
-      cy.visit('/home')
+      cy.visit(Cypress.env('home_url'))
       cy.location().should((loc) => {
         expect(loc.pathname).to.eq('/home')
       })
