@@ -8,13 +8,13 @@ describe('出勤紀錄管理', () => {
         cy.loginByCSRF(user)
       })
 
-      cy.visit('/attendance_management')
+      cy.visit(Cypress.env('attendance_management_url'))
     })
 
     it('檔案匯入成功並且成功刪除', () => {
       // 設置攔截器
       cy.intercept({
-        url: '/attendance_management/ajax',
+        url: Cypress.env('attendance_management_url') + '/ajax',
         method: 'POST',
       }).as('ajax')
 
@@ -46,7 +46,7 @@ describe('出勤紀錄管理', () => {
     it('檔案匯入失敗', () => {
       // 設置攔截器
       cy.intercept({
-        url: '/attendance_management/ajax',
+        url: Cypress.env('attendance_management_url') + '/ajax',
         method: 'POST',
       }).as('ajax')
 
@@ -72,7 +72,7 @@ describe('出勤紀錄管理', () => {
     it('匯入檔案格式錯誤', () => {
       // 設置攔截器
       cy.intercept({
-        url: '/attendance_management/ajax',
+        url: Cypress.env('attendance_management_url') + '/ajax',
         method: 'POST',
       }).as('ajax')
 

@@ -10,7 +10,7 @@ describe('attendance record testing - Admin', () => {
     })
 
     it('新增、查詢、修改後再刪除', () => {
-      cy.visit('/attendance_record')
+      cy.visit(Cypress.env('attendance_url'))
 
       cy.location().then((location) => {
         expect(location.pathname).to.be.eq('/attendance_record')
@@ -38,7 +38,7 @@ describe('attendance record testing - Admin', () => {
         // 抓取新增Modal
         cy.get('#ModalBody').within(() => {
           // 選取部門
-          cy.get('[data-id="SLayer2"]').debug().should('be.visible').click()
+          cy.get('[data-id="SLayer2"]').should('be.visible').click()
 
           // 點選 "RD" 選項
           cy.get('div.apply_company_unit > .dropdown-menu').contains('RD').click()
