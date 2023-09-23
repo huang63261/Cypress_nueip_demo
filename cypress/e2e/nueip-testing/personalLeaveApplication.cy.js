@@ -104,6 +104,13 @@ describe('請假作業', () => {
         url: Cypress.env('leave_application_url').user,
       }).as('generalRequest')
 
+      // 取得當天日期（平日）
+      const date = getTimeoffDate()
+      // 取得隔一天（平日）
+      let oriDate = new Date(date)
+      oriDate.setDate(oriDate.getDate() + 1)
+      const nextDay = getTimeoffDate(oriDate)
+
       // 等待首次取得請假資料
       cy.wait('@generalRequest').then(({request, response}) => {
         // 點擊請假申請
@@ -117,8 +124,8 @@ describe('請假作業', () => {
           cy.get('.time-off_emp_leave').select('事假')
 
           // 選擇日期
-          cy.get('#s_date').should('be.visible').clear().type('2023-09-11{enter}')
-          cy.get('#d_date').should('be.visible').clear().type('2023-09-11{enter}')
+          cy.get('#s_date').should('be.visible').clear().type(date + '{enter}')
+          cy.get('#d_date').should('be.visible').clear().type(date + '{enter}')
 
           // 點擊新增日期按鈕
           cy.get('.moreDate').should('be.visible').click()
@@ -129,8 +136,8 @@ describe('請假作業', () => {
             expect(response.statusCode).to.equal(200)
 
             // 選擇日期
-            cy.get('#s_date').should('be.visible').clear().type('2023-09-12{enter}')
-            cy.get('#d_date').should('be.visible').clear().type('2023-09-12{enter}')
+            cy.get('#s_date').should('be.visible').clear().type(nextDay + '{enter}')
+            cy.get('#d_date').should('be.visible').clear().type(nextDay + '{enter}')
 
             // 點擊新增日期按鈕
             cy.get('.moreDate').should('be.visible').click()
@@ -141,25 +148,9 @@ describe('請假作業', () => {
             expect(request.body).to.include("action=getWorksHours")
             expect(response.statusCode).to.equal(200)
 
-          // 將2023-08-31時間改為12:00
-          cy.get('.labal-date[data-day="2023-09-12"]').parents('.ctrl-day').find('.end').clear().type('12:00{enter}')
+          // 將時間改為12:00
+          cy.get(`.labal-date[data-day="${date}"]`).parents('.ctrl-day').find('.end').clear().type('12:00{enter}')
           })
-
-          // todo 上傳檔案
-          // let fileEl = document.createElement("span")
-          // fileEl.classList.add('fh-file-info')
-          // fileEl.setAttribute('data-name', 'files[]')
-
-          // cy.fixture('QA_training.png', 'binary').then((pic) => {
-          //   const file = new File(Cypress.Buffer.from(pic), "qa_training時程甘特圖.png", {
-          //     type: "image/png",
-          //     lastModified: Date.now(),
-          //   })
-          //   fileEl.setAttribute('data-file', file)
-          // })
-          // // 將 fileLoader append到表單中
-          // $formEl.append(fileEl)
-
 
           // 輸入原因
           cy.get('textarea[name="remark"]').should('be.visible').type('請假申請自動化測試')
@@ -200,8 +191,8 @@ describe('請假作業', () => {
         cy.get('div.time-off-search_unit_emp').should('have.class', 'open').contains('span.text', '測◯◯◯1').click()
 
         // 填寫日期區間
-        cy.get('input[name="s_date"]').clear().type('2023-09-11{enter}').should('have.value', '2023-09-11')
-        cy.get('input[name="e_date"]').clear().type('2023-09-12{enter}').should('have.value', '2023-09-12')
+        cy.get('input[name="s_date"]').clear().type(date + '{enter}').should('have.value', date)
+        cy.get('input[name="e_date"]').clear().type(nextDay + '{enter}').should('have.value', nextDay)
 
         // 選擇假別： 事假
         cy.get('select[id="VLayer"]').should('be.visible').select('事假')
@@ -220,9 +211,9 @@ describe('請假作業', () => {
       cy.get('td[data-th="申請說明"]')
         .should('have.text', '請假申請自動化測試')
         .siblings('td[data-th="開始時間"]')
-        .should('have.text', '2023-09-11')
+        .should('have.text', date)
         .siblings('td[data-th="結束時間"]')
-        .should('have.text', '2023-09-12')
+        .should('have.text', nextDay)
         .parent('tr').as('leaveApplication')
 
       // 展開子層假單
@@ -246,3 +237,18 @@ describe('請假作業', () => {
     })
   })
 })
+
+/**
+ * 取得日期（限平日）
+ * @param {object} oriDate
+ * @returns {string} date [yyyy-mm-dd]
+ */
+function getTimeoffDate(oriDate = null) {
+  let date = oriDate == null ? new Date() : oriDate;
+  // 檢查當前日期是否為週末 (0 代表週日, 6 代表週六)
+  while (date.getDay() === 0 || date.getDay() === 6) {
+      date.setDate(date.getDate() + 1);
+  }
+
+  return date.toISOString().slice(0, 10);
+}
